@@ -14,6 +14,7 @@ export class ServerError {
   protected showDetails = false;
 
   constructor() {
+    //Navigation è disponibile solamente nel costruttore. 
     const navigation = this.router.getCurrentNavigation();
     this.error = navigation?.extras?.state?.['error'];
   }
