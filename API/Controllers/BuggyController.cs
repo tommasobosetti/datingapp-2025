@@ -20,7 +20,7 @@ public class BuggyController : BaseApiController
     [HttpGet("server-error")]
     public IActionResult GetServerError()
     {
-        throw new Exception("Server error");
+        throw new Exception("Server internal error");
     }
 
     [HttpGet("bad-request")]
