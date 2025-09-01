@@ -1,6 +1,7 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RegisterCreds, User } from '../../../types/user';
+import { AccountService } from '../../../core/services/account-service';
 
 @Component({
   selector: 'app-register',
@@ -10,12 +11,19 @@ import { RegisterCreds, User } from '../../../types/user';
 })
 export class Register {
   //modo di input per passare dati da un componente padre al figlio tramite signal (home.ts è il padre, qui siamo nel figlio)
-  membersFromHome = input.required<User[]>();
+  // membersFromHome = input.required<User[]>();
+  private accountService = inject(AccountService);
   cancelRegister = output<boolean>();
   protected creds = {} as RegisterCreds;
 
   register() {
-    console.log(this.creds);
+    this.accountService.register(this.creds).subscribe({
+      next: response => {
+        console.log(response);
+        this.cancel();
+      },
+      error: error => console.log(error)
+    })
   }
 
   cancel() {

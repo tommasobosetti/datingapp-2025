@@ -10,7 +10,7 @@ import { User } from '../../types/user';
 })
 export class Home {
   //modo di input per passare dati da un componente padre al figlio tramite decorator (app.ts è padre, qui siamo nel figlio)
-  @Input({ required: true }) membersFromApp: User[] = [];
+  // @Input({ required: true }) membersFromApp: User[] = [];
   protected registerMode = signal(false);
 
   showRegister(value: boolean) {
