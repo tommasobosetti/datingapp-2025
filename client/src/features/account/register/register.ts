@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RegisterCreds, User } from '../../../types/user';
 
@@ -11,6 +11,7 @@ import { RegisterCreds, User } from '../../../types/user';
 export class Register {
   //modo di input per passare dati da un componente padre al figlio tramite signal (home.ts è il padre, qui siamo nel figlio)
   membersFromHome = input.required<User[]>();
+  cancelRegister = output<boolean>();
   protected creds = {} as RegisterCreds;
 
   register() {
@@ -18,6 +19,6 @@ export class Register {
   }
 
   cancel() {
-    console.log('cancelled!');
+    this.cancelRegister.emit(false);
   }
 }
