@@ -24,10 +24,13 @@ public class Seed
             return;
         }
 
-        using var hmac = new HMACSHA512();
+        // così, avendo una sola istanza di HMAC, la chiave sarà sempre la stessa --> stessi hash e stessi salt. 
+        // using var hmac = new HMACSHA512();
 
         foreach (var member in members)
         {
+            using var hmac = new HMACSHA512();
+
             var user = new AppUser
             {
                 Id = member.Id,
