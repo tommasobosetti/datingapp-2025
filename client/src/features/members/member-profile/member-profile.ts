@@ -4,22 +4,26 @@ import { single } from 'rxjs';
 import { EditableMember, Member } from '../../../types/member';
 import { DatePipe } from '@angular/common';
 import { MemberService } from '../../../core/services/member-service';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ToastService } from '../../../core/services/toast-service';
 
 @Component({
   selector: 'app-member-profile',
-  imports: [DatePipe],
+  imports: [DatePipe, FormsModule],
   templateUrl: './member-profile.html',
   styleUrl: './member-profile.css'
 })
 export class MemberProfile implements OnInit, OnDestroy {
-
   @ViewChild('editForm') editForm?: NgForm;
   private route = inject(ActivatedRoute);
   protected memberService = inject(MemberService);
   protected member = signal<Member | undefined>(undefined);
-  protected editableMember?: EditableMember;
+  protected editableMember: EditableMember = {
+    displayName: '',
+    description: '',
+    city: '',
+    country: ''
+  };
   private toast = inject(ToastService);
 
   ngOnInit(): void {
