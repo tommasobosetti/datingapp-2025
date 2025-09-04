@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { single } from 'rxjs';
 import { Member } from '../../../types/member';
 import { DatePipe } from '@angular/common';
+import { MemberService } from '../../../core/services/member-service';
 
 @Component({
   selector: 'app-member-profile',
@@ -12,6 +13,7 @@ import { DatePipe } from '@angular/common';
 })
 export class MemberProfile implements OnInit {
   private route = inject(ActivatedRoute);
+  protected memberService = inject(MemberService);
   protected member = signal<Member | undefined>(undefined);
 
   ngOnInit(): void {
