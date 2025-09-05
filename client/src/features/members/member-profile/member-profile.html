@@ -30,7 +30,7 @@
             <input class="input w-full" name="country" [(ngModel)]="editableMember.country" placeholder="Country">
         </label>
         <div class="flex self-end">
-            <button type="submit" class="btn btn-success">Save</button>
+            <button [disabled]="!editForm.dirty" type="submit" class="btn btn-success">Save</button>
         </div>
     </form>
     }
