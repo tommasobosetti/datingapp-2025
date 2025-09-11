@@ -45,6 +45,10 @@ export class MemberService {
     return this.http.put(this.baseUrl + 'members/set-main-photo/' + photo.id, {});
   }
 
+  deletePhoto(photoId: number) {
+    return this.http.delete(this.baseUrl + 'members/delete-photo/' + photoId);
+  }
+
   // Il metodo non serve più, così come le opzioni di sopra, perchè è stato aggiunto jwtInterceptor che si occuperà di aggiungerlo ad ogni richiesta
   // private getHttpOptions() {
   //   return {
