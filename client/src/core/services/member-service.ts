@@ -35,6 +35,12 @@ export class MemberService {
     return this.http.put(this.baseUrl + 'members', member);
   }
 
+  uploadPhoto(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<Photo>(this.baseUrl + 'members/add-photo', formData);
+  }
+
   // Il metodo non serve più, così come le opzioni di sopra, perchè è stato aggiunto jwtInterceptor che si occuperà di aggiungerlo ad ogni richiesta
   // private getHttpOptions() {
   //   return {
