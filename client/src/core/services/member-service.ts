@@ -41,6 +41,10 @@ export class MemberService {
     return this.http.post<Photo>(this.baseUrl + 'members/add-photo', formData);
   }
 
+  setMainPhoto(photo: Photo) {
+    return this.http.put(this.baseUrl + 'members/set-main-photo/' + photo.id, {});
+  }
+
   // Il metodo non serve più, così come le opzioni di sopra, perchè è stato aggiunto jwtInterceptor che si occuperà di aggiungerlo ad ogni richiesta
   // private getHttpOptions() {
   //   return {
