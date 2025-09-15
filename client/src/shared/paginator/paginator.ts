@@ -11,6 +11,7 @@ export class Paginator {
   pageSize = model(10);
   totalCount = input(0);
   pageSizeOptions = input([5, 10, 20, 50]);
+  totalPages = input(0);
 
   pageChange = output<{ pageNumber: number, pageSize: number }>();
 
