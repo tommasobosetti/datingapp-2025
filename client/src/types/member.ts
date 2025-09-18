@@ -33,8 +33,3 @@ export class MemberParams {
     pageSize = 10;
     orderBy = 'lastActive';
 }
-
-export class LikesParams {
-    pageNumber = 1;
-    pageSize = 10;
-}

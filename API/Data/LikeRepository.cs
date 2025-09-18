@@ -31,22 +31,22 @@ public class LikeRepository(AppDbContext context) : ILikesRepository
         return await context.Likes.FindAsync(sourceMemberId, targetMemberId);
     }
 
-    public async Task<PaginatedResult<Member>> GetMemberLikes(string predicate, string memberId, LikesParams likesParams)
+    public async Task<PaginatedResult<Member>> GetMemberLikes(LikesParams likesParams)
     {
         var query = context.Likes.AsQueryable();
         IQueryable<Member> result;
 
-        switch (predicate)
+        switch (likesParams.Predicate)
         {
             case "liked":
-                result = query.Where(x => x.SourceMemberId == memberId).Select(x => x.TargetMember);
+                result = query.Where(x => x.SourceMemberId == likesParams.MemberId).Select(x => x.TargetMember);
                 break;
             case "liked by":
-                result = query.Where(x => x.TargetMemberId == memberId).Select(x => x.SourceMember);
+                result = query.Where(x => x.TargetMemberId == likesParams.MemberId).Select(x => x.SourceMember);
                 break;
             default: // mutual
-                var likeIds = await GetCurrentMemberLikeIds(memberId);
-                result = query.Where(x => x.TargetMemberId == memberId && likeIds.Contains(x.SourceMemberId)).Select(x => x.SourceMember);
+                var likeIds = await GetCurrentMemberLikeIds(likesParams.MemberId);
+                result = query.Where(x => x.TargetMemberId == likesParams.MemberId && likeIds.Contains(x.SourceMemberId)).Select(x => x.SourceMember);
                 break;
         }
 
