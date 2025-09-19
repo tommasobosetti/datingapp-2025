@@ -2,15 +2,17 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using API.Entities;
 using API.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
 namespace API.Services;
 
-public class TokenService(IConfiguration config) : ITokenService
+public class TokenService(IConfiguration config, UserManager<AppUser> userManager) : ITokenService
 {
-    public string CreateToken(AppUser user)
+    public async Task<string> CreateToken(AppUser user)
     {
         var tokenKey = config["TokenKey"] ?? throw new Exception("Nessun Token Key");
         if (tokenKey.Length < 64)
@@ -25,6 +27,10 @@ public class TokenService(IConfiguration config) : ITokenService
             new(ClaimTypes.Email, user.Email!),
             new(ClaimTypes.NameIdentifier, user.Id)
         };
+
+        var roles = await userManager.GetRolesAsync(user);
+
+        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
         // Credenziali che si basano sulla chiave generata prima per firmare il token
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
