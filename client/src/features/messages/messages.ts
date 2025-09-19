@@ -38,6 +38,31 @@ export class Messages implements OnInit {
     });
   }
 
+  deleteMessage(event: Event, id: string) {
+    event.stopPropagation();
+    this.messageService.deleteMessage(id).subscribe({
+      next: () => {
+        const current = this.paginatedMessages();
+        if (current?.items) {
+          this.paginatedMessages.update(prev => {
+            if (!prev) {
+              return null;
+            }
+
+            const newItems = prev.items.filter(x => x.id !== id) || [];
+
+            //qui bisognerebbe aggiornare i metadata, oppure nel next: bisognerebbe poi richiamare loadMessages() per ricaricare i dati aggiornati 
+
+            return {
+              items: newItems,
+              metadata: prev.metadata
+            };
+          })
+        }
+      }
+    });
+  }
+
   get isInbox() {
     return this.fetchContainer === 'Inbox';
   }
