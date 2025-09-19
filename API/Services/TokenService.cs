@@ -22,7 +22,7 @@ public class TokenService(IConfiguration config) : ITokenService
         // informazioni sull'utente che l'utente dichiara su se stesso. 
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Email, user.Email),
+            new(ClaimTypes.Email, user.Email!),
             new(ClaimTypes.NameIdentifier, user.Id)
         };
 
