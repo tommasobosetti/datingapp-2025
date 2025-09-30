@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;
 
-public class LikeRepository(AppDbContext context) : ILikesRepository
+public class LikesRepository(AppDbContext context) : ILikesRepository
 {
     public void AddLike(MemberLike like)
     {
