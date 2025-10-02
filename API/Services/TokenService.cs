@@ -40,7 +40,8 @@ public class TokenService(IConfiguration config, UserManager<AppUser> userManage
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(7), // solitamente molto corte, si parla di minuti
+            // Expires = DateTime.UtcNow.AddMinutes(7), // solitamente molto corte, si parla di minuti
+            Expires = DateTime.UtcNow.AddDays(15), // fatto solamente per non consumare troppo crediti gratuiti di Azure (sqlServer gratis)
             SigningCredentials = creds
         };
 
